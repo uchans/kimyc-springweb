@@ -8,11 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-/**
- * 인터페이스 MemberDao의 구현체. SpringJdbc를 사용해서 구현
- * 
- * @author Jacob
- */
+
 @Repository("memberDao")
 public class MemberDaoImplUsingSpringJdbc implements MemberDao {
 
@@ -22,6 +18,7 @@ public class MemberDaoImplUsingSpringJdbc implements MemberDao {
 
 	static final String COUNT_ALL = "SELECT count(memberId) count FROM member";
 
+	static final String SELECT_BY_LOGIN = "SELECT memberId, email, password, name FROM member WHERE (email,password) = (?,sha2(?,256))";
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 
@@ -59,5 +56,10 @@ public class MemberDaoImplUsingSpringJdbc implements MemberDao {
 	@Override
 	public int countAll() {
 		return jdbcTemplate.queryForObject(COUNT_ALL, Integer.class);
+	}
+	
+	public Member selectByLogin(String email, String password) {
+		return jdbcTemplate.queryForObject(SELECT_BY_LOGIN, memberRowMapper,
+				email, password);
 	}
 }
