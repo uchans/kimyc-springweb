@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import javax.servlet.http.HttpSession;
+
+
 
 
 @Controller
@@ -37,7 +38,12 @@ public class ArticleController {
 			logger.debug("글정보를 저장했습니다. {}", article);
 			return "article/step2";
 } 
-
+	@RequestMapping(value="/article/step3", method=RequestMethod.GET)
+	public String step3(@RequestParam int articleId,Model model) {
+		Article step3 = articleDao.getArticle(articleId);
+		model.addAttribute("step3",step3);
+				return "/article/step3";
+		}
 
 	@GetMapping("/list")
 	public String articles(
