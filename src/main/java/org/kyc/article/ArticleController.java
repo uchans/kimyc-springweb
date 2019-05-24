@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 
 
 
@@ -26,11 +27,15 @@ public class ArticleController {
 
 	
 	
-	@RequestMapping("/article/step1")
-	public String handleStep1() {
+	@GetMapping("/article/step1")
+	public String articleAddForm(HttpSession session) {
+		Object memberObj = session.getAttribute("MEMBER");
+		if (memberObj == null)
+			// 세션에 MEMBER가 없을 경우 로그인 화면으로
+			return "login/loginForm";
+
 		return "article/step1";
-	}
-	
+}
 
 	@PostMapping("/article/step2")
 	public String handleStep2(Article article) {
@@ -50,9 +55,9 @@ public class ArticleController {
 			@RequestParam(value = "page", defaultValue = "1") int page,
 			Model model) {
 
-		// 페이지 당 가져오는 행의 수
+		
 		final int COUNT = 100;
-		// 시작점
+		
 		int offset = (page - 1) * COUNT;
 
 		List<Article> articleList = articleDao.selectAll(offset, COUNT);

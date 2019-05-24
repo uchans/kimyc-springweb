@@ -25,6 +25,8 @@ public interface MemberDao {
 	 */
 	List<Member> selectAll(int offset, int count);
 	
+	int changePassword(String memberId, String currentPassword,
+			String newPassword);
 	/**
 	 * 회원 수
 	 */

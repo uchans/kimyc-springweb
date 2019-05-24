@@ -19,6 +19,9 @@
 	<form action="./app/article/step1">
 		<button type="submit">글 등록</button>
 		</form>
+	<form action="./app/main">
+		<button type="submit">메인</button>
+		</form>
 	<table>
 		<thead>
 			<tr>
