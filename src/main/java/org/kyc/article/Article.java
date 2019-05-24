@@ -9,19 +9,11 @@ public class Article {
 	String cdate;
 	String udate;
 	
-	/**
-	 * Default Constructor
-	 */
+
 	public Article() {
 	}
 
-	/**
-	 
-	 * 
-	 * @param title   제목
-	 * @param content 내용
-	 * @param name     이름
-	 */
+	
 	public Article(String title, String content) {
 		this.title = title;
 		this.content = content;

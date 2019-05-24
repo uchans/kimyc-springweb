@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.kyc.chap11.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.SessionAttribute;
 import javax.servlet.http.HttpSession;
 
 
@@ -23,26 +24,25 @@ public class ArticleController {
 	@Autowired
 	ArticleDao articleDao;
 
-	static final Logger logger = LogManager.getLogger();
+	Logger logger = LogManager.getLogger();
 
 	
 	
 	@GetMapping("/article/step1")
 	public String articleAddForm(HttpSession session) {
-		Object memberObj = session.getAttribute("MEMBER");
-		if (memberObj == null)
-			// 세션에 MEMBER가 없을 경우 로그인 화면으로
-			return "login/loginForm";
-
 		return "article/step1";
 }
 
 	@PostMapping("/article/step2")
-	public String handleStep2(Article article) {
+	public String articleAdd(Article article,
+			@SessionAttribute("MEMBER") Member member) {
+			article.setUserId(member.getMemberId());
+			article.setName(member.getName());
 			articleDao.insert(article);
-			logger.debug("글정보를 저장했습니다. {}", article);
-			return "article/step2";
-} 
+			return "redirect:/app/list";
+}
+
+		
 	@RequestMapping(value="/article/step3", method=RequestMethod.GET)
 	public String step3(@RequestParam int articleId,Model model) {
 		Article step3 = articleDao.getArticle(articleId);
