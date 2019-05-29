@@ -68,4 +68,34 @@ public class ArticleController {
 		model.addAttribute("list", articleList);
 		return "list";
 	}
+	@GetMapping("/article/delete")
+	public String deleteArticle(
+			@RequestParam("articleId") String articleId,
+			@SessionAttribute("MEMBER") Member member) {
+			Article article = articleDao.getArticle(articleId);
+			
+			if(!member.getMemberId().equals(article.getUserId()))
+				return "redirect:/app/article/step3?articleId="+articleId;
+			articleDao.deleteArticle(article);
+			return "article/delete";
+	}
+	@PostMapping("/article/revise")
+	public String up(Article article,
+	        @RequestParam("articleId") String articleId,
+	        @SessionAttribute("MEMBER") Member member) {
+	    article.setArticleId(articleId);
+	    articleDao.updateArticle(article);
+	    return "article/revise";
+	   }
+	@GetMapping("/article/reviseTool")
+	public String update(
+		 @RequestParam("articleId") String articleId,
+	    @SessionAttribute("MEMBER") Member member,Model model) {
+	    Article article = articleDao.getArticle(articleId);
+	    
+	    if(!member.getMemberId().equals(article.getUserId()))
+	        return "redirect:/app/article/step3?articleId="+articleId;
+	    model.addAttribute("article",article);
+	    return "article/reviseTool";
+	}
 }

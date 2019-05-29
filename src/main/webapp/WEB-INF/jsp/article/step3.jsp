@@ -23,5 +23,7 @@
 	</table>
 		<a href="./app/main">[메인]</a>
 		<a href="./app/list">[목록]</a>
+		<a href="./app/article/reviseTool?articleId=${article.articleId}">[수정]</a>
+		<a href="./app/article/delete?articleId=${article.articleId}">[삭제]</a>
 </body>
 </html>

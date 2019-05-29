@@ -9,10 +9,13 @@ public interface ArticleDao {
 	
 	List<Article> selectAll(int offset, int count);
 	
-	
+	void updateArticle(Article article);
 	
 	Article getArticle(int articleId);
 	
-	int countAll();
+	void deleteArticle(Article article);
 	
+	int countAll();
+
+	Article getArticle(String articleId);
 }
