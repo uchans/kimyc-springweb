@@ -2,7 +2,7 @@
 <header>
 	<p>
 		<span><a href="./">홈</a></span> | <span><a href="./app/members">회원목록</a></span>
-		| <span><a href="./app/list">게시판</a></span> |
+		| <span><a href="./app/article/list">게시판</a></span> |
 		<!-- 로그인 여부에 따라 분기 -->
 		<c:choose>
 			<c:when test="${!empty sessionScope.MEMBER }">

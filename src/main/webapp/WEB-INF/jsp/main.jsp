@@ -30,7 +30,7 @@ p.291 [리스트 11.18] main 화면
 	</c:otherwise>
 </c:choose>
 	<p>
-		<a href="./app/list">[글 목록]</a>
+		<a href="./app/article/list">[글 목록]</a>
 	<p>
 		<a href="./app/members">[회원 목록]</a>
 	</p>
