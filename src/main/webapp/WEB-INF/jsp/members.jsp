@@ -32,6 +32,8 @@
 					<td>${member.email }</td>
 					<td>${member.name }</td>
 					<td>${member.cdate }</td>
+					<td><a
+						href="./app/letter/addLetter?receiverId=${member.memberId }&receiverName=${member.name }">편지쓰기</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
