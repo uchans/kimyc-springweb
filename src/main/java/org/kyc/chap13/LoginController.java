@@ -37,17 +37,19 @@ public class LoginController {
 	 */
 	@PostMapping("/login")
 	public String submit(@RequestParam("email") String email,
-			@RequestParam("password") String password, HttpSession session) {
+			@RequestParam("password") String password,
+			@RequestParam("returnUrl") String returnUrl, HttpSession session) {
 		try {
 			Member member = memberDao.selectByLogin(email, password);
 			session.setAttribute("MEMBER", member);
 			logger.debug("로그인 성공. {}", member);
-			return "login/loginSuccess";
+			return "redirect:" + returnUrl;
 		} catch (EmptyResultDataAccessException e) {
 			logger.debug("로그인 실패. email={}", email);
-			return "redirect:/app/loginForm?mode=FAILURE&email=" + email;
+			return "redirect:/app/loginForm?mode=FAILURE&email=" + email
+					+ "&returnUrl=" + returnUrl;
 		}
-	}
+}
 
 	/**
 	 * p.362 [리스트 13.3] LogoutController의 logout() 메서드 로그 아웃

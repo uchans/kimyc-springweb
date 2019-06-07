@@ -18,11 +18,9 @@
 	<context:component-scan base-package="org.kyc" />
 	<mvc:interceptors>
 	<mvc:interceptor>
-	<mvc:mapping path="/member/**"/>
-	<mvc:mapping path="/article/add*" />
-	<mvc:mapping path="/article/revise*" />
-	<mvc:mapping path="/article/delete" />
-	<mvc:mapping path="/letter/**" />
+		<mvc:mapping path="/member/*" />
+		<mvc:mapping path="/article/k/*" />
+		<mvc:mapping path="/letter/*" />
 	<bean class="org.kyc.chap13.AuthCheckInterceptor"/>
 	</mvc:interceptor>
 	</mvc:interceptors>

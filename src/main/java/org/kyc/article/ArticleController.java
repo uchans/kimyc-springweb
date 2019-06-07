@@ -2,8 +2,6 @@ package org.kyc.article;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.kyc.chap11.Member;
@@ -48,13 +46,9 @@ public class ArticleController {
 	}
 
 
-	@GetMapping("/article/addForm")
-	public String articleAddForm(HttpSession session) {
-		return "article/addForm";
-	}
 
 	
-	@PostMapping("/article/add")
+	@PostMapping("/article/k/add")
 	public String articleAdd(Article article,
 			@SessionAttribute("MEMBER") Member member) {
 		article.setUserId(member.getMemberId());
@@ -64,8 +58,8 @@ public class ArticleController {
 	}
 
 	
-	@GetMapping("/article/revise")
-	public void updateForm(@RequestParam("articleId") String articleId,
+	@GetMapping("/article/k/revise")
+	public void revise(@RequestParam("articleId") String articleId,
 			@SessionAttribute("MEMBER") Member member, Model model) {
 		Article article = articleDao.getArticle(articleId);
 
@@ -80,7 +74,7 @@ public class ArticleController {
 	/**
 	 * 글 수정
 	 */
-	@PostMapping("/article/update")
+	@PostMapping("/article/k/update")
 	public String update(Article article,
 			@SessionAttribute("MEMBER") Member member) {
 		article.setUserId(member.getMemberId());
@@ -97,7 +91,7 @@ public class ArticleController {
 	/**
 	 * 글 삭제
 	 */
-	@GetMapping("/article/delete")
+	@GetMapping("/article/k/delete")
 	public String delete(@RequestParam("articleId") String articleId,
 			@SessionAttribute("MEMBER") Member member) {
 		int updatedRows = articleDao.deleteArticle(articleId,
